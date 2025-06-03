@@ -19,7 +19,7 @@ exports.addMedia = async (req, res) => {
     const newMedia = new GallearySchema({
       name,
       type,
-      media: file.path,
+       media: file.path.replace("uploads/", ""),
     });
 
     await newMedia.save();
