@@ -11,25 +11,35 @@ exports.getTestimonials = async (req, res) => {
   
 
   exports.addTestimonial = async (req, res) => {
+    console.log("Request body:", req.body);
+    console.log("Request file:", req.file);
+  
     const { name, rating, review } = req.body;
     const image = req.file;
-
-    if (!image) return res.status(400).json({ error: "No file uploaded" });
+  
+    if (!image) {
+      console.log("No image file uploaded");
+      return res.status(400).json({ error: "No file uploaded" });
+    }
   
     const newTestimonial = new Testimonial({
       name,
-      image: image.path,
+      image: image.path || image.secure_url,
       rating,
       review,
     });
   
     try {
       await newTestimonial.save();
+      console.log("Testimonial saved:", newTestimonial);
       res.status(201).json(newTestimonial);
     } catch (err) {
-      res.status(500).json({ error: 'Error saving testimonial' });
+      console.error("Error saving testimonial:", err);
+      res.status(500).json({ error: err.message || err });
     }
   };
+  
+  
 
   
   exports.updateTestimonial = async (req, res) => {
