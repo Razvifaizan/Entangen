@@ -38,11 +38,11 @@ exports.addCertificate = async (req, res) => {
       name,
       course,
       completionDate,
-      certificateUrl: `/uploads/certificates/${certFile.filename}`,
+      certificateUrl: `${certFile.path}`, 
     });
 
     await newCert.save();
-    res.status(201).json({ message: 'Certificate added successfully' });
+    res.status(201).json({ message: 'Certificate added successfully', newCert  });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
