@@ -24,7 +24,7 @@ const subcategorySchema = new mongoose.Schema({
   description: String,
   duration: String,
   topics: [topicSchema],
-  fees:Number,
+  fees:String,
 });
 
 module.exports = mongoose.model('SubCategory', subcategorySchema);
