@@ -66,14 +66,26 @@ exports.deleteCourse = async (req, res) => {
 exports.addSubCategory = async (req, res) => {
   try {
     const imagePath = req.file ? req.file.path : '';
-    const { name, course, description, duration } = req.body;
+    const { name, course, description, duration , fees } = req.body;
 
-    const subCategory = new SubCategory({ name, image: imagePath, course, description, duration });
+    const subCategory = new SubCategory({ name, image: imagePath, course, description, duration, fees });
     await subCategory.save();
 
     await Course.findByIdAndUpdate(course, { $push: { subcategories: subCategory._id } });
 
     res.json(subCategory);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+// Get Course by ID
+exports.getCourseById = async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id).populate('subcategories');
+    if (!course) {
+      return res.status(404).json({ message: 'Course not found' });
+    }
+    res.json(course);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

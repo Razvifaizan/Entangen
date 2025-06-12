@@ -7,6 +7,7 @@ const upload = require('../middleware/uploadMiddleware.js');
 // COURSE ROUTES
 router.post('/course', upload.single('image'), courseController.addCourse);
 router.get('/courses', courseController.getCourses);
+router.get('/courses/:id', courseController.getCourseById);
 router.put('/course/:id', upload.single('image'), courseController.updateCourse);
 router.delete('/course/:id', courseController.deleteCourse);
 

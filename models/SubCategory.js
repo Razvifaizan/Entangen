@@ -10,7 +10,7 @@ const subtopicSchema = new mongoose.Schema({
 const topicSchema = new mongoose.Schema({
   title: String,
   videoUrl: String,
-  subtopics: [subtopicSchema],  // <-- new field
+  subtopics: [subtopicSchema],  
 });
 
 // SubCategory Schema
@@ -24,6 +24,7 @@ const subcategorySchema = new mongoose.Schema({
   description: String,
   duration: String,
   topics: [topicSchema],
+  fees:Number,
 });
 
 module.exports = mongoose.model('SubCategory', subcategorySchema);
