@@ -96,11 +96,11 @@ exports.updateSubCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const imagePath = req.file ? req.file.path : '';
-    const { name, description, duration } = req.body;
+    const { name, description, duration, fees } = req.body;
 
     const updatedSub = await SubCategory.findByIdAndUpdate(
       id,
-      { name, description, duration, ...(imagePath && { image: imagePath }) },
+      { name, description, duration, fees ,...(imagePath && { image: imagePath }) },
       { new: true }
     );
 
